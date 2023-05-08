@@ -1,0 +1,66 @@
+ERT_summary:
+  version: 0.3
+  table_summary:
+  - name: system_arch.chip.global_buffer
+    actions:
+    - name: read
+      average_energy: 0.672
+      max_energy: 1.34398
+      min_energy: 3.0e-05
+    - name: write
+      average_energy: 0.80583
+      max_energy: 1.61163
+      min_energy: 3.0e-05
+    - name: idle
+      energy: 3.0e-05
+    primitive_estimation(s):
+    - name: system_arch.chip.global_buffer
+      estimator: Cacti
+  - name: system_arch.DRAM
+    actions:
+    - name: read
+      energy: 512
+    - name: write
+      energy: 512
+    - name: idle
+      energy: 0
+    primitive_estimation(s):
+    - name: system_arch.DRAM
+      estimator: Cacti
+  - name: system_arch.chip.PE[0..15].scratchpad
+    actions:
+    - name: read
+      energy: 0.26641
+    - name: write
+      energy: 0.26641
+    primitive_estimation(s):
+    - name: storage
+      estimator: Aladdin_table
+  - name: system_arch.chip.PE[0..15].mac
+    actions:
+    - name: compute
+      energy: 3.275
+    primitive_estimation(s):
+    - name: compute
+      estimator: Aladdin_table
+  - name: system_arch.chip.PE[0..15].weights_reg
+    actions:
+    - name: access
+      energy: 0.009
+    primitive_estimation(s):
+    - name: storage
+      estimator: Aladdin_table
+  - name: system_arch.chip.PE[0..15].input_activation_reg
+    actions:
+    - name: access
+      energy: 0.009
+    primitive_estimation(s):
+    - name: storage
+      estimator: Aladdin_table
+  - name: system_arch.chip.PE[0..15].output_activation_reg
+    actions:
+    - name: access
+      energy: 0.009
+    primitive_estimation(s):
+    - name: storage
+      estimator: Aladdin_table

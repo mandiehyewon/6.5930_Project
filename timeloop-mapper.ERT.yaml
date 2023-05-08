@@ -1,0 +1,87 @@
+ERT:
+  version: 0.3
+  tables:
+  - name: system_arch.chip.global_buffer
+    actions:
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 3.0e-05
+    - name: read
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 0.94079
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.40321
+    - name: read
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 1.34398
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 0
+      energy: 3.0e-05
+    - name: write
+      arguments:
+        address_delta: 0
+        data_delta: 1
+      energy: 1.12815
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 0
+      energy: 0.48351
+    - name: write
+      arguments:
+        address_delta: 1
+        data_delta: 1
+      energy: 1.61163
+    - name: idle
+      arguments: null
+      energy: 3.0e-05
+  - name: system_arch.DRAM
+    actions:
+    - name: read
+      arguments: null
+      energy: 512
+    - name: write
+      arguments: null
+      energy: 512
+    - name: idle
+      arguments: null
+      energy: 0
+  - name: system_arch.chip.PE[0..15].scratchpad
+    actions:
+    - name: read
+      arguments: null
+      energy: 0.26641
+    - name: write
+      arguments: null
+      energy: 0.26641
+  - name: system_arch.chip.PE[0..15].mac
+    actions:
+    - name: compute
+      arguments: null
+      energy: 3.275
+  - name: system_arch.chip.PE[0..15].weights_reg
+    actions:
+    - name: access
+      arguments: null
+      energy: 0.009
+  - name: system_arch.chip.PE[0..15].input_activation_reg
+    actions:
+    - name: access
+      arguments: null
+      energy: 0.009
+  - name: system_arch.chip.PE[0..15].output_activation_reg
+    actions:
+    - name: access
+      arguments: null
+      energy: 0.009

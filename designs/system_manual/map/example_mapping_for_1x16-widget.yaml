@@ -1,0 +1,51 @@
+mapping:
+mapping-widget:
+  type: Tab
+  nested: True
+options:
+  - level: DRAM
+    level-widget:
+      type: VBox
+      nested: True
+    dram_t_c: 9
+    dram_t_c-widget:
+      type: BoundedIntText
+      args: {description: "Temp. C", min: 1, max: 18}
+    dram_t_m: 8
+    dram_t_m-widget:
+      type: BoundedIntText
+      args: {description: "Temp. M", min: 1, max: 16}
+    dram_t_n: 2
+    dram_t_n-widget:
+    - type: BoundedIntText
+      args: {description: "Temp. N", min: 1, max: 2}
+  - level: global_buffer
+    level-widget:
+      type: VBox
+    gbuf_t_c: 2
+    gbuf_t_c-widget:
+      type: BoundedIntText
+      args: {description: "Temp. C", min: 1, max: 18}
+    gbuf_t_m: 2
+    gbuf_t_m-widget:
+      type: BoundedIntText
+      args: {description: "Temp. M", min: 1, max: 16}
+    gbuf_t_n: 1
+    gbuf_t_n-widget:
+      type: BoundedIntText
+      args: {description: "Temp. N", min: 1, max: 2}
+    gbuf_s_m: 1
+    gbuf_s_m-widget:
+      type: BoundedIntText
+      args: {description: "Spat. M", min: 1, max: 16}
+    gbuf_s_c: 1
+    gbuf_s_c-widget:
+    - type: BoundedIntText
+      args: {description: "Spat. C", min: 1, max: 18}
+  - level: scratchpad
+    level-widget:
+      type: VBox
+    spad_t_n: 1
+    spad_t_n-widget:
+    - type: BoundedIntText
+      args: {description: "Temp. N", min: 1, max: 2}

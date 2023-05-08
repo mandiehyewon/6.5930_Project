@@ -1,0 +1,37 @@
+# ============================================================
+# Please DO NOT modify this file
+# ============================================================
+compound_components:
+  version: 0.3
+  classes:
+    - name: smart_storage
+      attributes:        # default attribute values (can be overridden by architecture specifications)
+        technology: 45nm
+        latency: 1ns
+        depth: 24
+        width: 16
+      subcomponents:     # a list of all components that this compound component is composed of (one in this example)
+        - name: storage
+          class: regfile # primitive class defined in primitive class library
+          attributes:    # lower-level attributes that are mapped from upper level
+            technology: technology
+            latency: latency
+            depth : depth
+            width: width
+      actions:           # definitions of the compound actions in terms of the lower-level actions
+        - name: read     # random read compound action
+          subcomponents:
+            - name: storage
+              actions:
+                - name: read
+                  arguments:
+                    address_delta: 1  # action argument: stands for the amount of toggling on address wires
+                    data_delta: 1     # action argument: stands for the amount of toggling on data wires
+        - name: write     # random write compound action
+          subcomponents:
+            - name: storage
+              actions:
+                - name: write
+                  arguments:
+                    address_delta: 1  # action argument: stands for the amount of toggling on address wires
+                    data_delta: 1     # action argument: stands for the amount of toggling on data wires

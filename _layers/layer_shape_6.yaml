@@ -1,0 +1,24 @@
+
+problem:
+  shape:
+    name: "linear"
+    dimensions: [ N, I, O ]
+    data-spaces:
+    - name: Weights
+      projection:
+      - [ [I] ]
+      - [ [O] ]
+    - name: Inputs
+      projection:
+      - [ [N] ]
+      - [ [I] ]
+    - name: Outputs
+      projection:
+      - [ [N] ]
+      - [ [O] ]
+      read-write: True
+
+  instance:
+    N: 16  # batch size
+    I: 1000  # in dim
+    O: 16  # out dim

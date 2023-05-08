@@ -1,0 +1,103 @@
+  # ==========================================================================
+  # Please update this file to reflect the addition of address generator
+  # ==========================================================================
+compound_components:
+  version: 0.3
+  classes:
+    - name: smart_storage
+      attributes:        # default attribute values (can be overridden by architecture specifications)
+        technology: 45nm
+        latency: 1ns
+        depth: 24
+        width: 16
+      subcomponents:     # components that this compound component is composed of (one in this example)
+        - name: storage
+          class: regfile # primitive class defined in primitive class library
+          attributes:    # lower-level attributes that are mapped from upper level
+            technology: technology
+            latency: latency
+            depth : depth
+            width: width
+        # ============================================================
+        # Add your hardware description for the address generator here
+        # ============================================================
+        - name: Address Generator
+          name-widget:
+            - type: Text
+              args: {description: "Name", value: ""}
+          class:
+          class-widget:
+            type: Text
+            args: {description: "Class"}
+          attributes:
+            technology:
+            technology-widget:
+              type: Text
+              args: {description: "Technology"}
+            datawidth:
+            datawidth-widget:
+              type: Text
+              args: {description: "Data width"}
+            latency:
+            latency-widget:
+              - type: Text
+                args: {description: "Latency"}
+      actions:           # definitions of the compound actions in terms of the lower-level actions
+        - name: read     # random read compound action
+          subcomponents:
+            - name: storage
+              actions:
+                - name: read
+                  arguments:
+                    address_delta: 1  # action argument: stands for the amount of toggling on address wires
+                    data_delta: 1     # action argument: stands for the amount of toggling on data wires
+            # ======================================================
+            # Add the subaction related to address_generator here
+            # ======================================================
+            - name:
+              name-widget:
+                type: Text
+                args: {description: "Subcomponent"}
+              actions:
+                - name:
+                  name-widget:
+                    type: Text
+                    args: {description: "Subaction"}
+                  arguments:
+                    address_delta:
+                    address_delta-widget:
+                      type: IntText
+                      args: {description: "Address delta"}
+                    data_delta:
+                    data_delta-widget:
+                      - type: IntText
+                        args: {description: "Data delta"}
+        - name: write     # random write compound action
+          subcomponents:
+            - name: storage
+              actions:
+                - name: write
+                  arguments:
+                    address_delta: 1  # action argument: stands for the amount of toggling on address wires
+                    data_delta: 1     # action argument: stands for the amount of toggling on data wires
+            # ======================================================
+            # Add the subaction related to address_generator here
+            # ======================================================
+            - name:
+              name-widget:
+                type: Text
+                args: {description: "Subcomponent"}
+              actions:
+                - name:
+                  name-widget:
+                    type: Text
+                    args: {description: "Subaction"}
+                  arguments:
+                    address_delta:
+                    address_delta-widget:
+                      type: IntText
+                      args: {description: "Address delta"}
+                    data_delta:
+                    data_delta-widget:
+                      type: IntText
+                      args: {description: "Data delta"}

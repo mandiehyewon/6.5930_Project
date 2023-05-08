@@ -1,0 +1,67 @@
+# ========================================
+# Please DO NOT Modify this file
+# ========================================
+architecture:
+  version: 0.3
+  subtree:                           # "subtree" contains abstract hierarchies
+    - name: system_arch              # name of the design
+      attributes:                    # shared attributes that will propagate down all lower levels
+        technology: 45nm
+        latency: 1ns
+      local:
+        - name: DRAM                 # offchip DRAM is the source of all datatypes
+          class: DRAM                # assume DRAM is large enough to store all the data, so no depth specification needed
+          attributes:
+            width: 64                # width in bits
+            datawidth: 16            # datawidth in bits
+            block-size: 4
+      subtree:
+        - name: chip                 # all components below this level are on-chip components
+          local:
+            - name: global_buffer
+              class: SRAM
+              attributes:
+                width: 16
+                depth: 512
+                datawidth: 16
+                n_banks: 1
+                n_rdwr_ports: 2
+          subtree:
+            - name: PE[0..15]
+              local:                 # "local" contains physical instantiations
+                - name: scratchpad
+                  class: smart_storage  # definitions of the compound classes can be found under "components" folder
+                  attributes:
+                    width: 16        # width in bits
+                    depth: 18
+                    meshX: 1        # number of components in the X dimension (PE rows)
+                    meshY: 16       # number of components in the Y dimension (PE cols)
+                - name: mac
+                  class: mac_compute
+                  attributes:
+                    datawidth: 16   # datawidth in bits
+                    num_pipline_stages: 2
+                    meshX: 1        # number of components in the X dimension (PE rows)
+                    meshY: 16       # number of components in the Y dimension (PE cols)
+                # registers for the mac unit
+                - name: weights_reg
+                  class: reg_storage
+                  attributes:
+                    depth: 1
+                    width: 16
+                    meshX: 1
+                    meshY: 16
+                - name: input_activation_reg
+                  class: reg_storage
+                  attributes:
+                    depth: 1
+                    width: 16
+                    meshX: 1
+                    meshY: 16
+                - name: output_activation_reg
+                  class: reg_storage
+                  attributes:
+                    depth: 1
+                    width: 16
+                    meshX: 1
+                    meshY: 16

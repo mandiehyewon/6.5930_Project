@@ -1,0 +1,29 @@
+# ========================================
+# Please DO NOT Modify this file
+# ========================================
+compound_components:
+  version: 0.3
+  classes:
+    - name: mac_compute
+      attributes:        # default attribute values (can be overridden by architecture specifications)
+        technology: 45nm
+        latency: 1ns
+        datawidth: 16    # datawidth in bits
+        num_pipeline_stages: 2
+      subcomponents:     # a list of all components that this compound component is composed of (one in this example)
+        - name: compute
+          class: intmac  # primitive class defined in primitive class library
+          attributes:    # lower-level attributes that are mapped from upper level
+            technology: technology
+            latency: latency
+            datawidth: 16 # datawidth in bits
+            num_pipeline_stages: 2
+      actions:           # definitions of the compound actions in terms of the lower-level actions
+        - name: compute  # compute action
+          subcomponents:
+            - name: compute
+              actions:
+                - name: read
+                  arguments:
+                    address_delta: 1
+                    data_delta: 1

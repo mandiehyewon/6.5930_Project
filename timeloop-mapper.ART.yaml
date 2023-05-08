@@ -1,0 +1,17 @@
+ART:
+  version: 0.3
+  tables:
+  - name: system_arch.chip.global_buffer
+    area: 7021.76
+  - name: system_arch.DRAM
+    area: 0
+  - name: system_arch.chip.PE[0..15].scratchpad
+    area: 390.9925
+  - name: system_arch.chip.PE[0..15].mac
+    area: 1726.5
+  - name: system_arch.chip.PE[0..15].weights_reg
+    area: 5.98
+  - name: system_arch.chip.PE[0..15].input_activation_reg
+    area: 5.98
+  - name: system_arch.chip.PE[0..15].output_activation_reg
+    area: 5.98

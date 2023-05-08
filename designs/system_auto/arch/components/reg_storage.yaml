@@ -1,0 +1,25 @@
+# ============================================================
+# Please DO NOT modify this file
+# ============================================================
+compound_components:
+  version: 0.3
+  classes:
+    - name: reg_storage
+      attributes:        # default attribute values (can be overridden by architecture specifications)
+        technology: 45nm
+        latency: 1ns
+        width: 16
+        depth: 1
+      subcomponents:     # a list of all components that this compound component is composed of (one in this example)
+        - name: storage
+          class: reg     # primitive class defined in primitive class library
+          attributes:    # lower-level attributes that are mapped from upper level
+            technology: technology
+            latency: latency
+            datawidth : width
+      actions:             # definitions of the compound actions in terms of the lower-level actions
+        - name: access     # random read compound action
+          subcomponents:
+            - name: storage
+              actions:
+                - name: access

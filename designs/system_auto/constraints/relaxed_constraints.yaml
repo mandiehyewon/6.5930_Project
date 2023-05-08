@@ -1,0 +1,48 @@
+mapspace:
+  targets:
+    - name: DRAM
+      type: bypass
+      keep: [Inputs, Outputs, Weights]
+      bypass: []
+    - name: global_buffer
+      type: bypass
+      keep: [Inputs, Outputs, Weights]
+      bypass: []
+    - name: global_buffer
+      type: temporal
+      factors: P=1 Q=1 R=1 S=1
+      permutation: SRQPCMN
+    - name: global_buffer
+      type: spatial
+      factors: P=1 Q=1 R=1 S=1 N=1
+      permutation: C MRSPQN
+      split: 1
+    - name: scratchpad
+      type: bypass
+      keep: [Weights]
+      bypass: [Inputs, Outputs]
+    - name: scratchpad
+      type: temporal
+      factors: R=0 S=0 P=0 Q=0
+      permutation: QPSR
+    - target: weights_reg
+      type: bypass
+      keep: [Weights]
+      bypass: [Inputs, Outputs]
+    - target: weights_reg
+      type: temporal
+      factors: R=1 S=1 P=1 Q=1 N=1 C=1 M=1
+    - target: input_activation_reg
+      type: bypass
+      keep: [Inputs]
+      bypass: [Weights, Outputs]
+    - target: input_activation_reg
+      type: temporal
+      factors: R=1 S=1 P=1 Q=1 N=1 C=1 M=1
+    - target: output_activation_reg
+      type: bypass
+      keep: [Outputs]
+      bypass: [Weights, Inputs]
+    - target: output_activation_reg
+      type: temporal
+      factors: R=1 S=1 P=1 Q=1 N=1 C=1 M=1

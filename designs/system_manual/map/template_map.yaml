@@ -1,0 +1,70 @@
+f"""mapping:
+  # -------------------------------------
+  # temporal constraint can be updated
+  # -------------------------------------
+  - target: DRAM
+    type: temporal
+    factors: P=1 Q=1 R=1 S=1 C={var['dram_t_c']} M={var['dram_t_m']} N={var['dram_t_n']} # you should only play with M, C and N
+    permutation: SRQPCMN # you should not change this order, as it is defined by the loopnest
+  # -------------------------------------
+  # temporal constraint can be updated
+  # -------------------------------------
+  - target: global_buffer
+    type: temporal
+    factors: P=1 Q=1 R=1 S=1 C={var['gbuf_t_c']} M={var['gbuf_t_m']} N={var['gbuf_t_n']} # you should only play with M, C and N
+    permutation: SRQPCMN # you should not change this order, as it is defined by the loopnest
+  # -------------------------------------
+  # spatial constraint can be updated
+  # -------------------------------------
+  - target: global_buffer
+    type: spatial  # spatial constraint specification
+    factors: P=1 Q=1 R=1 S=1 N=1 C={var['gbuf_s_c']} M={var['gbuf_s_m']} # you should only play with M and C
+    #--------------------------------------------------
+    # You should NOT modify the lines below
+    #-------------------------------------------------
+    # space does not have meaning, just easier to see where the split is (see split)
+    permutation: C MRSPQN
+    # tells at which index should the dimensions be mapped to Y (PE cols),
+    # the dimensions before that index all should map to X (PE rows)
+    split: 1
+  # -------------------------------------
+  # temporal constraint can be updated
+  # -------------------------------------
+  - target: scratchpad
+    type: temporal
+    factors: R=0 S=0 P=0 Q=0 M=1 C=1 N={var['spad_t_n']} # you should only play with N here
+    permutation: QPNCMSR # you should NOT change this order, as it is defined by the loop nest
+  # -------------------------------------
+  # bypass constraint should NOT be modified
+  # -------------------------------------
+  - target: scratchpad
+    type: bypass
+    keep: [Weights]
+    bypass: [Inputs, Outputs]
+  # -------------------------------------------------
+  # Please DO NOT modify the mapping for the registers
+  # -------------------------------------------------
+  - target: weights_reg
+    type: bypass
+    keep: [Weights]
+    bypass: [Inputs, Outputs]
+  - target: weights_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 N=1 C=1 M=1
+    permutation: RSPQCMN
+  - target: input_activation_reg
+    type: bypass
+    keep: [Inputs]
+    bypass: [Weights, Outputs]
+  - target: input_activation_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 N=1 C=1 M=1
+    permutation: RSPQCMN
+  - target: output_activation_reg
+    type: bypass
+    keep: [Outputs]
+    bypass: [Weights, Inputs]
+  - target: output_activation_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 N=1 C=1 M=1
+    permutation: RSPQCMN"""

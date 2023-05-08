@@ -1,0 +1,38 @@
+f"""mapping:
+  - target: DRAM
+    type: temporal
+    factors: R={var['dram_t_r']} S={var['dram_t_s']} P={var['dram_t_p']} Q={var['dram_t_q']} N={var['dram_t_n']} M={var['dram_t_m']} C={var['dram_t_c']}
+    permutation: {var['dram_permutation']}
+  - target: scratchpad
+    type: temporal
+    factors: R={var['spad_t_r']} S={var['spad_t_s']} P={var['spad_t_p']} Q={var['spad_t_q']} N={var['spad_t_n']} M={var['spad_t_m']} C={var['spad_t_c']} # factor of 0 => full dimension
+    permutation: {var['spad_permutation']}
+  - target: scratchpad
+    type: bypass
+    keep: [{var['spad_keep']}]
+    bypass: [{var['spad_bypass']}]
+  - target: weight_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: weight_reg
+    type: bypass
+    keep: [Weights]
+    bypass: [Inputs, Outputs]
+  - target: input_activation_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: input_activation_reg
+    type: bypass
+    keep: [Inputs]
+    bypass: [Weights, Outputs]
+  - target: output_activation_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: output_activation_reg
+    type: bypass
+    keep: [Outputs]
+    bypass: [Weights, Inputs]
+"""

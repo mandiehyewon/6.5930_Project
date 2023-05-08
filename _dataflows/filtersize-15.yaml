@@ -1,0 +1,56 @@
+
+problem:
+  shape:
+    name: "Conv3D"
+    dimensions: [ R, S, T, P, Q, F, C, M, N ]
+    coefficients:
+    - name: Wstride
+      default: 1
+    - name: Hstride
+      default: 1
+    - name: Dstride
+      default: 1
+    - name: Wdilation
+      default: 1
+    - name: Hdilation
+      default: 1
+    - name: Ddilation
+      default: 1
+
+    data-spaces:
+    - name: Weights
+      projection:
+      - [ [C] ]
+      - [ [M] ]
+      - [ [R] ]
+      - [ [S] ]
+      - [ [T] ]
+    - name: Inputs
+      projection:
+      - [ [N] ]
+      - [ [C] ]
+      - [ [R, Wdilation], [P, Wstride] ] # SOP form: RWdilation + PWstride
+      - [ [S, Hdilation], [Q, Hstride] ] # SOP form: SHdilation + QHstride
+      - [ [T, Ddilation], [F, Dstride] ] # SOP form: TDdilation + FDstride
+    - name: Outputs
+      projection:
+      - [ [N] ]
+      - [ [M] ]
+      - [ [Q] ]
+      - [ [P] ]
+      - [ [F] ]
+      read-write: True
+
+  instance:
+    N: 8 # batch size
+    C: 1 # in channels (number of kernels)
+    M: 20 # out channels (number of kernels)
+    R: 15 # filter width
+    S: 15 # filter height
+    T: 15 # filter depth
+    Q: 1 # output image width (x)
+    P: 1 # output image height (y)
+    F: 187 # output image depth (z)
+    Wstride: 1
+    Hstride: 1
+    Dstride: 1

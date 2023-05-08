@@ -1,0 +1,43 @@
+# ========================================
+# Please DO NOT Modify this file
+# ========================================
+mapping:
+  # mapping for the DRAM
+  - target: DRAM
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 N=2 M=32 C=32
+    permutation: RSPQCMN
+  # mapping for the local scratchpad inside the PE
+  - target: scratchpad
+    type: temporal
+    factors: R=0 S=0 P=0 Q=0 N=1 M=2 C=1 # factor of 0 => full dimension
+    permutation: QPCMNSR
+  - target: scratchpad
+    type: bypass
+    keep: [Weights]
+    bypass: [Inputs, Outputs]
+  # mapping for the input and output registers of the mac unit
+  - target: weight_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: weight_reg
+    type: bypass
+    keep: [Weights]
+    bypass: [Inputs, Outputs]
+  - target: input_activation_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: input_activation_reg
+    type: bypass
+    keep: [Inputs]
+    bypass: [Weights, Outputs]
+  - target: output_activation_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: output_activation_reg
+    type: bypass
+    keep: [Outputs]
+    bypass: [Weights, Inputs]

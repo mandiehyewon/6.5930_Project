@@ -1,0 +1,86 @@
+mapping:
+mapping-widget:
+  type: Tab
+  nested: True
+options:
+  - level: DRAM
+    level-widget:
+      type: VBox
+      nested: True
+    dram_t_c:
+    dram_t_c-widget:
+      type: BoundedIntText
+      args: {description: "Temp. C", min: 0, max: 32}
+    dram_t_m:
+    dram_t_m-widget:
+      type: BoundedIntText
+      args: {description: "Temp. M", min: 0, max: 64}
+    dram_t_n:
+    dram_t_n-widget:
+      type: BoundedIntText
+      args: {description: "Temp. N", min: 0, max: 2}
+    dram_t_r:
+    dram_t_r-widget:
+      type: BoundedIntText
+      args: {description: "Temp. R", min: 0, max: 3}
+    dram_t_s:
+    dram_t_s-widget:
+      type: BoundedIntText
+      args: {description: "Temp. S", min: 0, max: 3}
+    dram_t_p:
+    dram_t_p-widget:
+      type: BoundedIntText
+      args: {description: "Temp. P", min: 0, max: 5}
+    dram_t_q:
+    dram_t_q-widget:
+      type: BoundedIntText
+      args: {description: "Temp. Q", min: 0, max: 5}
+    dram_permutation:
+    dram_permutation-widget:
+      - type: Text
+        args: {description: "Permutation"}
+      - type: Close
+  - level: scratchpad
+    level-widget:
+      type: VBox
+      nested: True
+    spad_t_c:
+    spad_t_c-widget:
+      type: BoundedIntText
+      args: {description: "Temp. C", min: 0, max: 32}
+    spad_t_m:
+    spad_t_m-widget:
+      type: BoundedIntText
+      args: {description: "Temp. M", min: 0, max: 64}
+    spad_t_n:
+    spad_t_n-widget:
+      type: BoundedIntText
+      args: {description: "Temp. N", min: 0, max: 2}
+    spad_t_r:
+    spad_t_r-widget:
+      type: BoundedIntText
+      args: {description: "Temp. R", min: 0, max: 3}
+    spad_t_s:
+    spad_t_s-widget:
+      type: BoundedIntText
+      args: {description: "Temp. S", min: 0, max: 3}
+    spad_t_p:
+    spad_t_p-widget:
+      type: BoundedIntText
+      args: {description: "Temp. P", min: 0, max: 5}
+    spad_t_q:
+    spad_t_q-widget:
+      type: BoundedIntText
+      args: {description: "Temp. Q", min: 0, max: 5}
+    spad_permutation:
+    spad_permutation-widget:
+      type: Text
+      args: {description: "Permutation"}
+    spad_bypass:
+    spad_bypass-widget:
+      type: Text
+      args: {description: "Bypass"}
+    spad_keep:
+    spad_keep-widget:
+      type: Text
+      args: {description: "Keep"}

@@ -1,0 +1,62 @@
+# This is output stationary.
+# If you comment out the permutation in DRAM, you will get 20.2 pJ/MACC but
+# the loop nest is PQFM (M is outermost loop). If you comment it in, you
+# will get real output stationary but it will be 33.9 pJ/MACC.
+mapspace:
+  targets:
+    - name: DRAM
+      type: bypass
+      keep: [Inputs, Outputs, Weights]
+      bypass: []
+    - name: DRAM
+      type: temporal
+      factors: F=0 P=0 Q=0 #M=20 #C=0 M=10 F=0
+      permutation: # MFPQ
+#     - name: global_buffer
+#       type: bypass
+#       keep: [Inputs, Outputs, Weights]
+#       bypass: []
+#     - name: global_buffer
+#       type: temporal
+#       factors: #T=0 P=8 Q=8
+#       permutation: #SRQPCMN
+    - name: global_buffer
+      type: spatial
+      factors: N=8
+      permutation: #CMRSPQN
+    - name: global_buffer
+      type: temporal
+      factors: R=0 S=0 T=0
+      permutation: #CMRSPQN
+#     - name: scratchpad
+#       type: bypass
+#       keep: [Weights]
+#       bypass: [Inputs, Outputs]
+#     - name: scratchpad
+#       type: temporal
+#       factors: R=3 S=3 T=3
+#       permutation: #QPNCMSR
+    - target: weights_reg
+      type: bypass
+      keep: [Weights]
+      bypass: [Inputs, Outputs]
+#     - target: weights_reg
+#       type: temporal
+#       factors: #R=1 S=1 P=1 Q=1 N=1 C=1 M=1
+#       permutation:
+    - target: input_activation_reg
+      type: bypass
+      keep: [Inputs]
+      bypass: [Weights, Outputs]
+#     - target: input_activation_reg
+#       type: temporal
+#       factors: #R=1 S=1 P=1 Q=1 N=1 C=1 M=1
+      permutation:
+    - target: output_activation_reg
+      type: bypass
+      keep: [Outputs]
+      bypass: [Weights, Inputs]
+#     - target: output_activation_reg
+#       type: temporal
+#       factors: #R=1 S=1 P=1 Q=1 N=1 C=1 M=1
+#       permutation: #RSPQCMN

@@ -1,0 +1,50 @@
+mapping:
+  - target: DRAM
+    type: temporal
+    #======================================================================
+    # update according to the new loop nest
+    #======================================================================
+    factors: R= S= P= Q= N= M= C= # factor of 0 => full dimension
+    permutation:
+  - target: scratchpad
+    type: temporal
+    #======================================================================
+    # update according to the new loop nest
+    #======================================================================
+    factors: R= S= P= Q= N= M= C= # factor of 0 => full dimension
+    permutation:
+  - target: scratchpad
+    type: bypass
+    #======================================================================
+    # update according to the new loop nest
+    #======================================================================
+    keep: []
+    bypass: []
+
+  #========================================================
+  # Please DO NOT update the mapping for the registers
+  #========================================================
+  - target: weight_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: weight_reg
+    type: bypass
+    keep: [Weights]
+    bypass: [Inputs, Outputs]
+  - target: input_activation_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: input_activation_reg
+    type: bypass
+    keep: [Inputs]
+    bypass: [Weights, Outputs]
+  - target: output_activation_reg
+    type: temporal
+    factors: R=1 S=1 P=1 Q=1 M=1 C=1 N=1
+    permutation: PQCMRSN
+  - target: output_activation_reg
+    type: bypass
+    keep: [Outputs]
+    bypass: [Weights, Inputs]

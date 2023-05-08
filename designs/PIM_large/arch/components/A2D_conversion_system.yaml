@@ -1,0 +1,44 @@
+compound_components:
+  version: 0.3
+  classes:
+    - name: A2D_conversion_system
+      attributes:  # default attributes that can be overridden
+        technology: 32nm
+        latency: 1ns
+        datawidth: 16
+        cell_datawidth: 2
+        n_DAC_cycles: 16
+        ADC_datawidth: 8
+        n_PE_cols: 8
+        nCells: datawidth/cell_datawidth
+        SH_datawidth: ADC_datawidth
+        total_SHs: nCells * n_PE_cols # each physical column has a sample and hold
+        ADC_converts_per_psum: nCells * n_DAC_cycles # temporal: n_DAC_cycles times for each column of cells
+      subcomponents:
+        - name: SH[0..total_SHs-1]
+          class: sample_and_hold
+          attributes:
+            technology: technology
+            latency: latency
+            datawidth: SH_datawidth
+        # =============================================================================
+        # Please modify the ADC to reflect your circuit designer's efforts
+        # =============================================================================
+        - name: ADC
+          class: ADC
+          attributes:
+            technology: technology
+            latency: latency
+            type: low_power_SAR # This was SAR before
+            datawidth: ADC_datawidth
+      actions:
+        - name: convert
+          subcomponents:
+            - name: SH[0..nCells-1]
+              actions:
+                - name: sample_and_hold
+                  action_share: n_DAC_cycles  # number of times the action need to be performed
+            - name: ADC
+              actions:
+                - name: convert
+                  action_share: ADC_converts_per_psum # number of times the action need to be performed

@@ -1,0 +1,46 @@
+
+problem:
+  shape:
+    name: "Conv2D"
+    dimensions: [ C, M, R, S, N, P, Q ]
+    coefficients:
+    - name: Wstride
+      default: 1
+    - name: Hstride
+      default: 1
+    - name: Wdilation
+      default: 1
+    - name: Hdilation
+      default: 1
+
+    data-spaces:
+    - name: Weights
+      projection:
+      - [ [C] ]
+      - [ [M] ]
+      - [ [R] ]
+      - [ [S] ]
+    - name: Inputs
+      projection:
+      - [ [N] ]
+      - [ [C] ]
+      - [ [R, Wdilation], [P, Wstride] ] # SOP form: R*Wdilation + P*Wstride
+      - [ [S, Hdilation], [Q, Hstride] ] # SOP form: S*Hdilation + Q*Hstride
+    - name: Outputs
+      projection:
+      - [ [N] ]
+      - [ [M] ]
+      - [ [Q] ]
+      - [ [P] ]
+      read-write: True
+
+  instance:
+    C: 500  # inchn
+    M: 800  # outchn
+    R: 3   # filter height
+    S: 1   # filter width
+    P: 1   # ofmap height
+    Q: 1   # ofmap width
+    N: 16   # batch size
+    Wstride: 1
+    Hstride: 1

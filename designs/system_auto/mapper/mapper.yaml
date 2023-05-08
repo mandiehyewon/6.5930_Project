@@ -1,0 +1,7 @@
+mapper:
+  optimization-metric: [ delay ]
+  live-status: False
+  diagnostics: False
+  num-threads: 8
+  timeout: 1500
+  victory-condition: 800
